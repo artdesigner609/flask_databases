@@ -15,6 +15,8 @@ def create_app() -> Flask:
                 static_folder='static', static_url_path='/')
     # here we will configure the string of the database, means where we are going to connect to?So, if it's not exist, it will create it.
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./testdb.db'
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/flask_tut_db'
+    # then run flask db migrate - flask db upgrade
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
