@@ -1,1 +1,54 @@
-[]
+{% extends "base.html" %}
+
+{% block title %} Home Page {% endblock %}
+
+{% block content %} 
+<div class="container">
+    <h3>Add New Person</h3>
+        <form action={{ url_for ('index')}}, method="POST">
+            <div class="mb-3">
+                <label for="exampleInputName" class="form-label">Full Name</label>
+                <input type="text" name="name" class="form-control" id="exampleInputName" placeholder='Full Name'>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputAge" class="form-label">Age</label>
+                <input type="number" name="age" class="form-control" id="exampleInputAge" placeholder='Your Age'>
+            </div>
+            <div class="mb-3">
+                <label for="exampleJobtName" class="form-label">Job Title</label>
+                <input type="text" name="Job" class="form-control" id="exampleInputJob" placeholder='Job Title'>
+            </div>
+            <button type="submit" class="btn btn-success">Add Person</button>
+        </form>
+    <h3>list of all persons from DB</h3>
+
+                <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Job Title</th>
+                        <th scope="col">Action</th>
+                        </tr>
+                </thead>
+                    <tbody>
+                        {% for person in people %}
+                        <tr>
+                        <th scope="row">{{ person.pid }}</th>
+                        <td>{{ person.name }}</td>
+                        <td>{{ person.age }}</td>
+                        <td>{{ person.job }}</td>
+                        <td> <button type="button" class='btn btn-danger' onclick = "deletePerson({{ person.pid }})">Delete Record</button></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <script type="text/javascript">
+                    function deletePerson(pid){
+                        fetch('{{ url_for("delete", pid=pid) }}' + pid, {
+                    method: 'DELETE'})
+                }
+                </script>
+</div>
+{% endblock %}
