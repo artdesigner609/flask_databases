@@ -18,11 +18,11 @@ def create_app() -> Flask:
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
-    migrate.init_app(app, db)
+    # migrate.init_app(app, db)
 
     from routes import register_routes
     register_routes(app, db)
 
-    # migrate = Migrate(app, db)
+    migrate = Migrate(app, db)
 
     return app
